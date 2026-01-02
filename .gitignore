@@ -1,0 +1,44 @@
+# 编译产物
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# 数据库文件
+data/
+*.db
+*.mv.db
+*.trace.db
+
+# 日志
+*.log
+logs/
+
+# 临时文件
+temp_images/
+*.tmp
+
+# 前端
+frontend/node_modules/
+frontend/dist/
+
+# 打包产物
+*.exe
+*.msi
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 敏感信息（如果有单独配置文件）
+application-local.yml
+secrets.yml
+
+# cookies
+manjaro_cookies.json

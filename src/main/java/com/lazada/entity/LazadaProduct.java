@@ -1,5 +1,6 @@
 package com.lazada.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Map;
 
@@ -7,47 +8,59 @@ import java.util.Map;
  * Lazada商品实体
  */
 @Data
+@Entity
+@Table(name = "products")
 public class LazadaProduct {
     
-    /** 商品标题 */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(length = 500)
     private String title;
     
-    /** 现价 */
+    @Column(length = 50)
     private String price;
     
-    /** 原价 */
+    @Column(length = 50)
     private String originalPrice;
     
-    /** 折扣 */
+    @Column(length = 50)
     private String discount;
     
-    /** 尺寸 */
+    @Column(length = 200)
     private String dimensions;
     
-    /** 重量 */
+    @Column(length = 100)
     private String weight;
     
-    /** 图片URL，逗号分隔 */
+    @Column(columnDefinition = "TEXT")
     private String images;
     
-    /** 包装清单 */
+    @Column(columnDefinition = "TEXT")
     private String packingList;
     
-    /** 产品描述 */
+    @Column(columnDefinition = "TEXT")
     private String description;
     
-    /** 规格，JSON格式 如 {"Color Family": "Pink", "Variation": "Basics"} */
+    @Column(columnDefinition = "TEXT")
     private String specifications;
     
-    /** 商品URL */
+    @Column(length = 500, unique = true)
     private String url;
     
-    /** 分类名称 */
+    @Column(length = 200)
     private String categoryName;
     
-    /** SKU ID */
+    @Column(length = 100)
     private String skuId;
     
-    /** SKU属性，所有属性键值对 */
+    @Transient
     private Map<String, String> skuAttrs;
+    
+    @Column
+    private Integer status = 0;
+    
+    @Column(length = 500)
+    private String errorMessage;
 }

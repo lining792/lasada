@@ -24,8 +24,18 @@ public class LazadaCrawler {
         // 1. 抓取HTML
         String html = oxylabsClient.fetchHtml(url);
         
-        // 2. 直接解析返回
-        return parser.parse(html);
+        // 2. 解析
+        LazadaProduct product = parser.parse(html);
+        product.setUrl(url);
+        
+        return product;
+    }
+    
+    /**
+     * 抓取商品（兼容旧接口）
+     */
+    public LazadaProduct crawlAndSave(String url) throws IOException {
+        return crawl(url);
     }
     
     /**
@@ -48,7 +58,7 @@ public class LazadaCrawler {
      */
     public void printProduct(LazadaProduct product) {
         System.out.println("============================================================");
-        System.out.println("Lazada商品信息");
+        System.out.println("Lazada商品信息" + (product.getId() != null ? " (ID: " + product.getId() + ")" : ""));
         System.out.println("============================================================");
         System.out.println("title: " + (product.getTitle() != null ? product.getTitle().substring(0, Math.min(50, product.getTitle().length())) + "..." : "N/A"));
         System.out.println("price: " + product.getPrice());
@@ -76,16 +86,17 @@ public class LazadaCrawler {
         LazadaCrawler crawler = new LazadaCrawler(username, password);
         
         try {
-            // 从网络抓取并解析
-            LazadaProduct product = crawler.crawl(testUrl);
+            // 抓取
+            LazadaProduct product = crawler.crawlAndSave(testUrl);
             
-            crawler.printProduct(product);
+            if (product != null) {
+                crawler.printProduct(product);
+            }
             
         } catch (IOException e) {
             System.err.println("爬取失败: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // 关闭HTTP客户端，避免线程泄漏
             crawler.shutdown();
         }
     }

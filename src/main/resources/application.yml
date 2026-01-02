@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: -1
+
+spring:
+  web:
+    resources:
+      static-locations: classpath:/static/
+  
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+      file-size-threshold: 0
+  
+  datasource:
+    url: jdbc:h2:file:./data/lazada;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+# 通义千问API Key
+qwen:
+  api-key: sk-35367766253845a7b853ac6dcec039b6
+
+# Oxylabs配置
+oxylabs:
+  username: quan8050_hmxyo
+  password: Oxylabs_Api2026+
+
+logging:
+  level:
+    root: INFO
+    com.lazada: DEBUG
